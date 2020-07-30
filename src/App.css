@@ -1,3 +1,41 @@
+/*Custom*/
+.Nav-Links{
+  padding:10px;
+  color:#457b9d;
+  text-decoration:none;
+}
+.Nav-Links:hover{
+  color:#1d3557;
+  padding:10px;
+  text-decoration:none;
+}
+.cart{
+  width:60px;
+  height:40px;
+  background-repeat: round;
+  cursor:pointer;
+  background-image:url("image/carts.png")
+}
+.cart:hover .cart-red{
+  transform: scale(1.52);
+  -ms-transform: scale(1.52);
+}
+.cart-red{
+  background-color:#e63946;
+  width:20px;
+  height:20px;
+  float:right;
+  border-radius:20px;
+  margin-right:4px;
+  transition: .3s;
+}
+
+
+
+/*End*/
+
+
+
 .App {
   text-align: center;
 }
