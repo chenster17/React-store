@@ -7,7 +7,7 @@ import '../App.css'
 export default class BottomBar extends Component{
     render(){
         return (
-            <div style={{height:"100%", backgroundColor:"#f1faee"}}>
+            <div style={{height:"100%", backgroundColor:"#a8dadc"}}>
                 <Container>
                     <div className="box-container">
                         <div className="box">
@@ -19,21 +19,21 @@ export default class BottomBar extends Component{
                             </Form>
                         </div>
                         <div className="box" style={{overflow:"hidden"}}>
-                            <a>FAQs</a>
-                            <a>order lookups</a>
-                            <a>returns & exchanges</a>
-                            <a>contact us</a>
+                            <div>FAQs</div>
+                            <div>order lookups</div>
+                            <div>returns & exchanges</div>
+                            <adiv>contact us</adiv>
                         </div>
                         <div className="box" style={{overflow:"hidden"}}>
-                            <a>Privacy Policy</a>
-                            <a>Careers</a>
-                            <a>About us</a>
-                            <a>Schedule</a>
+                            <div>Privacy Policy</div>
+                            <div>Careers</div>
+                            <div>About us</div>
+                            <div>Schedule</div>
                         </div>
                         <div className="box" style={{overflow:"hidden"}}>
-                            <a>Shop</a>
-                            <a>New Releases</a>
-                            <a>Sale</a>
+                            <div>Shop</div>
+                            <div>New Releases</div>
+                            <div>Sale</div>
                         </div>
                     </div>
                     <div style={{color:"#457b9d", textAlign:"center", padding:"20px"}}>© 2020 One Drop Shop</div>

@@ -4,20 +4,20 @@ import NavigationBar from "./navbar.components";
 import CarouselSection from "./carousel.components";
 import BestSeller from "./bestSeller.components";
 import BottomBar from "./bottombar.components";
+import Catalogue from "./catalogue.components";
 
 export default class Home extends Component{
     render(){
         return (
-            <div style={{backgroundColor:"#a8dadc"}}>
+            <div style={{backgroundColor:"#f1faee"}}>
             <NavigationBar/>
                 <CarouselSection/>
-                <Container style={{textAlign:"center"}}>
-                    <h1 style={{padding:"50px", fontSize:"100px", color:"#1d3557"}}>BEST SELLERS</h1>
+                <Container style={{textAlign:"center", paddingTop:"40px"}}>
                     <BestSeller/>
+                    <Catalogue/>
 
                 </Container>
                 <BottomBar/>
-
             </div>
         )}
 }
