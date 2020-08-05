@@ -1,20 +1,20 @@
 const express = require ('express');
 const router = express.Router();
-const speakers = require('../models/speaker');
+const webcams = require('../models/webcam');
 
 router.get("/getAll", (req, res, next) => {
-    speakers.find({})
+    webcams.find({})
         .then(data => res.json(data))
         .catch(next)
 });
-router.get("/getSpeaker/:id",(req, res, next) =>{
-    speakers.findById(req.params.id)
+router.get("/getwebcam/:id",(req, res, next) =>{
+    webcams.findById(req.params.id)
         .then(data => res.json(data))
         .catch(next)
 });
 router.get("/getBrands", (req, res, next) => {
     //this will return all CPUs from the database
-    speakers.find({},"brand")
+    webcams.find({},"brand")
         .then(data => {
             const result =[];
             for (var i in data) {
@@ -26,23 +26,10 @@ router.get("/getBrands", (req, res, next) => {
         })
         .catch(next)
 });
-router.get("/getTypes", (req, res, next) => {
-    //this will return all CPUs from the database
-    speakers.find({},"type")
-        .then(data => {
-            const result =[];
-            for (var i in data) {
-                var obj = JSON.parse(JSON.stringify(data[i]));
-                if(!result.includes(obj.type))
-                    result.push(obj.type);
-            }
-            res.json(result);
-        })
-        .catch(next)
-});
+
 router.get("/getConnections", (req, res, next) => {
     //this will return all CPUs from the database
-    speakers.find({},"connection")
+    webcams.find({},"connection")
         .then(data => {
             const result =[];
             for (var i in data) {
@@ -54,27 +41,14 @@ router.get("/getConnections", (req, res, next) => {
         })
         .catch(next)
 });
-router.get("/getWeights",(req, res, next) =>{
-    speakers.find({},"weight")
+router.get("/getResolutions",(req, res, next) =>{
+    webcams.find({},"resolution")
         .then(data => {
             const result =[];
             for (var i in data) {
                 var obj = JSON.parse(JSON.stringify(data[i]));
-                if(!result.includes(obj.weight))
-                    result.push(obj.weight);
-            }
-            res.json(result.sort(function(a, b){return a-b}));
-        })
-        .catch(next)
-});
-router.get("/getPowers",(req, res, next) =>{
-    speakers.find({},"power")
-        .then(data => {
-            const result =[];
-            for (var i in data) {
-                var obj = JSON.parse(JSON.stringify(data[i]));
-                if(!result.includes(obj.power))
-                    result.push(obj.power);
+                if(!result.includes(obj.resolution))
+                    result.push(obj.resolution);
             }
             res.json(result.sort(function(a, b){return a-b}));
         })
@@ -82,7 +56,7 @@ router.get("/getPowers",(req, res, next) =>{
 });
 
 router.get("/getPrices",(req, res, next) =>{
-    speakers.find({},"price")
+    webcams.find({},"price")
         .then(data => {
             const result =[];
             for (var i in data) {

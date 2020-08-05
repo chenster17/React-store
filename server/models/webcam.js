@@ -4,10 +4,8 @@ const Schema = mongoose.Schema;
 const WebcamSchema = new Schema({
     name: String,
     brand: String,
-    type: String,
+    resolution: Number,
     connection: String,
-    weight: Number,
-    power: Number,
     price: Number,
     file: String
 },{

@@ -5,7 +5,7 @@ import './App.css';
 
 
 import Home from './components/home.components';
-import Shop from './components/shop.componenets'
+import Shop from './components/shop.components'
 
 
 function App() {
