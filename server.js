@@ -18,7 +18,6 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-
 const speakerRouter = require('./server/routes/speaker');
 const webcamRouter = require('./server/routes/webcam');
 
