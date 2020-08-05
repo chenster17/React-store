@@ -10,9 +10,10 @@
 
 # production
 /build
-/src/image
+/client/src/image
 
-
+.env
+/client/node_modules
 # misc
 .DS_Store
 .env.local

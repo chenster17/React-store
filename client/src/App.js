@@ -5,12 +5,14 @@ import './App.css';
 
 
 import Home from './components/home.components';
+import Shop from './components/shop.componenets'
 
 
 function App() {
   return (
       <Router>
         <Route exact path='/' component={Home}/>
+        <Route path="/Shop" component={Shop}/>
       </Router>
   );
 }
