@@ -21,8 +21,6 @@ app.use(express.json());
 const speakerRouter = require('./server/routes/speaker');
 const webcamRouter = require('./server/routes/webcam');
 
-
-
 app.use('/speaker', speakerRouter);
 app.use('/webcam', webcamRouter);
 

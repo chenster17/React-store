@@ -22,7 +22,7 @@ export default class BottomBar extends Component{
                             <div>FAQs</div>
                             <div>order lookups</div>
                             <div>returns & exchanges</div>
-                            <adiv>contact us</adiv>
+                            <div>contact us</div>
                         </div>
                         <div className="box" style={{overflow:"hidden"}}>
                             <div>Privacy Policy</div>

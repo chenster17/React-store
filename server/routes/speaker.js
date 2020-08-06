@@ -80,7 +80,6 @@ router.get("/getPowers",(req, res, next) =>{
         })
         .catch(next)
 });
-
 router.get("/getPrices",(req, res, next) =>{
     speakers.find({},"price")
         .then(data => {
@@ -94,7 +93,9 @@ router.get("/getPrices",(req, res, next) =>{
         })
         .catch(next)
 });
-
+router.get("/getFields", (req, res, next) => {
+    res.json(["Brands", "Types", "Connections", "Weights", "Powers", "Prices"])
+});
 
 
 module.exports = router;

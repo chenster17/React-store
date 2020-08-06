@@ -17,12 +17,12 @@ export default class NavigationBar extends Component{
                         <div style={{padding: "10px"}} className="drop-down-menu">
                             <a href="/Shop" className="Nav-Links" style={{padding:"0px"}}>Shop</a>
                             <div className="dropdown-content">
-                                <a href="/Shop#computer" style={{textDecoration:"none"}}>Computer</a>
-                                <a href="/Shop#mouse" style={{textDecoration:"none"}}>Mouse</a>
-                                <a href="/Shop#keyboard" style={{textDecoration:"none"}}>Keyboard</a>
-                                <a href="/Shop#Speaker" style={{textDecoration:"none"}}>Speaker</a>
-                                <a href="/Shop#headphone" style={{textDecoration:"none"}}>headphone</a>
-                                <a href="/Shop#webcam" style={{textDecoration:"none"}}>Webcam</a>
+                                <a href="/Shop/computer" style={{textDecoration:"none"}}>Computer</a>
+                                <a href="/Shop/mouse" style={{textDecoration:"none"}}>Mouse</a>
+                                <a href="/Shop/keyboard" style={{textDecoration:"none"}}>Keyboard</a>
+                                <a href="/Shop/speaker" style={{textDecoration:"none"}}>Speaker</a>
+                                <a href="/Shop/headphone" style={{textDecoration:"none"}}>headphone</a>
+                                <a href="/Shop/webcam" style={{textDecoration:"none"}}>Webcam</a>
                             </div>
                         </div>
                     </Nav>

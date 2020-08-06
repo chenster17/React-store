@@ -93,7 +93,7 @@
   right: 16px;
   font-size: 35px;
   color:white;
-  transition: .4s;
+  transition: .3s;
   transform: translate(150px,150px);
   -ms-transform: translate(150px,150px);
 }
@@ -108,7 +108,6 @@
 }
 .main-page-header{
   font-size: 35px;
-
 }
 .shop-page{
   width:100%;
@@ -165,13 +164,14 @@
     max-width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 15% 85%;
     grid-auto-flow: dense;
   }
   .selection-bar{
+    border-radius: 20px;
     height:100%;
     width:100%;
-    background-color: #1d3557;
+    background-color: #457b9d;
     display: grid;
     overflow: hidden;
     position: relative;
@@ -179,7 +179,6 @@
   .option-bar{
     height:100%;
     width:100%;
-    background-color: #61dafb;
     display: grid;
     overflow: hidden;
     position: relative;

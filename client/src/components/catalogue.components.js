@@ -9,39 +9,39 @@ export default class Catalogue extends Component {
                 <hr style={{ margin:"20px", border: "3px solid #1d3557", borderRadius: "10px"}}/>
                 <div className="catalogue-container">
                     <div className="box drop-shadow">
-                        <a href="/Shop#computer">
+                        <a href="/Shop/computer">
                             <img src={require("../image/catalogue/computer.png")} alt="Computers" style={{width:"100%"}}/>
                             <div className="text">Computers</div>
                         </a>
                     </div>
                     <div className="box drop-shadow">
-                        <a href="/Shop#mouse">
+                        <a href="/Shop/mouse">
                             <img src={require("../image/catalogue/mouse.png")} alt="Mice" style={{width:"100%"}}/>
                             <div className="text">Mice</div>
                         </a>
                     </div>
                     <div className="box drop-shadow">
-                        <a href="#/Shopkeyboard">
+                        <a href="/Shop/keyboard">
                             <img src={require("../image/catalogue/keyboard.png")} alt="Keyboards" style={{width:"100%"}}/>
                             <div className="text">Keyboards</div>
                         </a>
 
                     </div>
                     <div className="box drop-shadow">
-                        <a href="/Shop#speaker">
+                        <a href="/Shop/speaker">
                             <img src={require("../image/catalogue/speaker.png")} alt="Speakers" style={{width:"100%"}}/>
                             <div className="text">Speakers</div>
                         </a>
 
                     </div>
                     <div className="box drop-shadow">
-                        <a href="/Shop#headphone">
+                        <a href="/Shop/headphone">
                             <img src={require("../image/catalogue/headphone.png")} alt="Headphones" style={{width:"100%"}}/>
                             <div className="text">Headphones</div>
                         </a>
                     </div>
                     <div className="box drop-shadow">
-                        <a href="/Shop#webcam">
+                        <a href="/Shop/webcam">
                             <img src={require("../image/catalogue/webcam.png")} alt="Webcams" style={{width:"100%"}}/>
                             <div className="text">Webcams</div>
                         </a>
