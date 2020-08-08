@@ -6,44 +6,66 @@ import { Dropdown } from "react-bootstrap";
 import NavigationBar from "./navbar.components";
 import BottomBar from "./bottombar.components";
 
+import SideBarMenu from "./sideBarMenu";
+
 
 export default class Shop extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            brands:[],
-            selectOptions : [],
+            fields:[],
+            selectOptions : {},
+            tech:[],
             catalogueOptions:["computer","mouse", "keyboard", "speaker", "headphone", "webcam"],
             testText:""
         }
     };
+
     componentDidMount() {
         var extension = document.URL.split('/');
-        if (this.state.catalogueOptions.includes(extension[extension.length - 1]) && extension[extension.length - 2] === "Shop") {
-            this.setState({testText: extension[extension.length - 1]})
+        if (this.state.catalogueOptions.includes(extension[extension.length - 1].split('#')[0]) && extension[extension.length - 2] === "Shop") {
+            this.setState({testText: extension[extension.length - 1].split('#')[0]})
             document.getElementById("container").className = "shop-container";
             document.getElementById("sidebar").style = "visibility:true";
-            axios.get("http://localhost:5000/" + extension[extension.length - 1] + "/getFields")
-                .then(response => {
-                    var temp = [];
-                    this.setState({brands: response.data})
-                    for (var i of this.state.brands) {
-                        axios.get("http://localhost:5000/" + extension[extension.length - 1] + "/get" + i)
-                            .then(brandsOption => {
-                                temp.push(brandsOption.data);
-                            })
+            axios.get("http://localhost:5000/" + extension[extension.length - 1].split('#')[0] + "/getFields")
+                .then(async response => {
+                    var temp = {};
+                    this.setState({fields: response.data})
+                    for (var i of this.state.fields) {
+                        var result = await axios.get("http://localhost:5000/" + extension[extension.length - 1].split('#')[0] + "/get" + i.charAt(0).toUpperCase() + i.slice(1) + "s")
+                        temp[i] = await result.data;
                     }
-                    this.setState({selectOption: temp});
+                    this.setState({selectOptions: temp});
+                    console.log(this.state.selectOptions)
+                    var filtered = extension[extension.length - 1].split('#').slice(1);
+                    var temp_JSON = {};
+                    for(var select of filtered){
+                        if(select.includes("=")){
+                            var each_select = select.split("=");
+                            if (this.state.fields.includes(each_select[0])){
+                                temp_JSON[each_select[0]] = each_select[1];
+                            }
+                        }
+                    }
+                    axios.post("http://localhost:5000/" + extension[extension.length - 1].split('#')[0] + "/getFilter", temp_JSON)
+                        .then(response => {
+                            this.setState({tech:response.data})
+                        })
                 })
-        } else if (extension[extension.length - 1] === "Shop" && extension.length === 4) {
+        }
+        else if (extension[extension.length - 1] === "Shop" && extension.length === 4) {
             this.setState({testText: "All Options"})
             document.getElementById("sidebar").style = "visibility:hidden";
-
-        } else {
+        }
+        else {
             window.location = "/Shop"
         }
     }
 
+    reset(){
+        window.location = window.location + "#type=indoor"
+        location.reload()
+    }
     render(){
         return (
             <div style={{backgroundColor:"#f1faee"}}>
@@ -68,8 +90,12 @@ export default class Shop extends Component{
                 </div>
                 <div className="center shop-page" style={{marginBottom:"50px"}}>
                     <div id="container" className="">
-                        <div id="sidebar" className="selection-bar drop-shadow" >
+                        <div id="sidebar" className="selection-bar" >
+                            <div style={{margin:"20px"}}>
+                            {this.state.fields.map((eachField,index) => {return <SideBarMenu field={eachField} fieldValue={this.state.selectOptions[eachField]} key={eachField} />})}
+                            </div>
                         </div>
+
                         <div className="option-bar">
                             <h1 style={{margin:"20px", textTransform:"capitalize", color:"#457b9d"}}>{this.state.testText}</h1>
                         </div>

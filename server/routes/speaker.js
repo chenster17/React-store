@@ -13,7 +13,6 @@ router.get("/getSpeaker/:id",(req, res, next) =>{
         .catch(next)
 });
 router.get("/getBrands", (req, res, next) => {
-    //this will return all CPUs from the database
     speakers.find({},"brand")
         .then(data => {
             const result =[];
@@ -27,7 +26,6 @@ router.get("/getBrands", (req, res, next) => {
         .catch(next)
 });
 router.get("/getTypes", (req, res, next) => {
-    //this will return all CPUs from the database
     speakers.find({},"type")
         .then(data => {
             const result =[];
@@ -41,7 +39,6 @@ router.get("/getTypes", (req, res, next) => {
         .catch(next)
 });
 router.get("/getConnections", (req, res, next) => {
-    //this will return all CPUs from the database
     speakers.find({},"connection")
         .then(data => {
             const result =[];
@@ -94,7 +91,28 @@ router.get("/getPrices",(req, res, next) =>{
         .catch(next)
 });
 router.get("/getFields", (req, res, next) => {
-    res.json(["Brands", "Types", "Connections", "Weights", "Powers", "Prices"])
+    res.json(["brand", "type", "connection", "weight", "power", "price"])
+});
+router.get("/getAllValues", (req, res, next) => {
+    var all = {};
+    speakers.find({},"brand")
+        .then(data => {
+            const result = [];
+            for (var i in data) {
+                var obj = JSON.parse(JSON.stringify(data[i]));
+                if(!result.includes(obj.brand))
+                    result.push(obj.brand);
+            }
+            all["brand"]=result;
+        })
+        .catch(next)
+    res.json(all);
+
+});
+router.post("/getFilter",  (req, res, next) => {
+    speakers.find(req.body)
+        .then( data => res.json(data))
+        .catch(next)
 });
 
 

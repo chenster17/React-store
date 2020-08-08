@@ -162,7 +162,6 @@
   .shop-container{
     position: relative;
     max-width: 100%;
-    height: 100%;
     display: grid;
     grid-template-columns: 15% 85%;
     grid-auto-flow: dense;
@@ -183,6 +182,23 @@
     overflow: hidden;
     position: relative;
   }
+  .sidebar-container{
+    position: relative;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-auto-flow: dense;
+  }
+  .sidebar-container .checkbox{
+    display: grid;
+    overflow: hidden;
+    position: relative;
+  }
+  .sidebar-container .text{
+    display: grid;
+    overflow: hidden;
+    position: relative;
+  }
+
 
 }
 /*End*/
