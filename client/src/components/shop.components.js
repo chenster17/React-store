@@ -1,6 +1,9 @@
 /* eslint no-restricted-globals: 0 */
 import React, { Component } from 'react';
+import {useSelector, useDispatch} from "react-redux";
+import {currentLocation} from "../actions/filter";
 import axios from "axios";
+
 
 import { Dropdown } from "react-bootstrap";
 import NavigationBar from "./navbar.components";
@@ -9,34 +12,35 @@ import BottomBar from "./bottombar.components";
 import SideBarMenu from "./sideBarMenu";
 
 
+
 export default class Shop extends Component{
     constructor(props) {
         super(props);
         this.state = {
             fields:[],
             selectOptions : {},
-            tech:[],
             catalogueOptions:["computer","mouse", "keyboard", "speaker", "headphone", "webcam"],
-            testText:""
         }
     };
 
-    componentDidMount() {
+    async componentDidMount() {
         var extension = document.URL.split('/');
-        if (this.state.catalogueOptions.includes(extension[extension.length - 1].split('#')[0]) && extension[extension.length - 2] === "Shop") {
-            this.setState({testText: extension[extension.length - 1].split('#')[0]})
+        await this.setState({catalogue: extension[extension.length - 1]});
+        if (this.state.catalogueOptions.includes(this.state.catalogue) && extension[extension.length - 2] === "Shop") {
             document.getElementById("container").className = "shop-container";
             document.getElementById("sidebar").style = "visibility:true";
-            axios.get("http://localhost:5000/" + extension[extension.length - 1].split('#')[0] + "/getFields")
+            axios.get("http://localhost:5000/" + extension[extension.length - 1]+ "/getFields")
                 .then(async response => {
                     var temp = {};
                     this.setState({fields: response.data})
                     for (var i of this.state.fields) {
-                        var result = await axios.get("http://localhost:5000/" + extension[extension.length - 1].split('#')[0] + "/get" + i.charAt(0).toUpperCase() + i.slice(1) + "s")
+                        var result = await axios.get("http://localhost:5000/" + this.state.catalogue + "/get" + i.charAt(0).toUpperCase() + i.slice(1) + "s")
                         temp[i] = await result.data;
                     }
                     this.setState({selectOptions: temp});
-                    console.log(this.state.selectOptions)
+
+
+                    /*
                     var filtered = extension[extension.length - 1].split('#').slice(1);
                     var temp_JSON = {};
                     for(var select of filtered){
@@ -50,22 +54,18 @@ export default class Shop extends Component{
                     axios.post("http://localhost:5000/" + extension[extension.length - 1].split('#')[0] + "/getFilter", temp_JSON)
                         .then(response => {
                             this.setState({tech:response.data})
-                        })
+                        })*/
                 })
         }
-        else if (extension[extension.length - 1] === "Shop" && extension.length === 4) {
+        else if (this.state.catalogue === "Shop" && extension.length === 4) {
             this.setState({testText: "All Options"})
             document.getElementById("sidebar").style = "visibility:hidden";
         }
-        else {
-            window.location = "/Shop"
+        else{
+            window.location = "/Shop";
         }
     }
 
-    reset(){
-        window.location = window.location + "#type=indoor"
-        location.reload()
-    }
     render(){
         return (
             <div style={{backgroundColor:"#f1faee"}}>
@@ -92,12 +92,12 @@ export default class Shop extends Component{
                     <div id="container" className="">
                         <div id="sidebar" className="selection-bar" >
                             <div style={{margin:"20px"}}>
-                            {this.state.fields.map((eachField,index) => {return <SideBarMenu field={eachField} fieldValue={this.state.selectOptions[eachField]} key={eachField} />})}
+                            {this.state.fields.map((eachField) => {return <SideBarMenu field={eachField} fieldValue={this.state.selectOptions[eachField]} key={eachField} />})}
                             </div>
                         </div>
 
                         <div className="option-bar">
-                            <h1 style={{margin:"20px", textTransform:"capitalize", color:"#457b9d"}}>{this.state.testText}</h1>
+                            <h1 style={{margin:"20px", textTransform:"capitalize", color:"#457b9d"}}>{this.state.catalogue}</h1>
                         </div>
 
                     </div>
