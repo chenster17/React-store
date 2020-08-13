@@ -1,15 +1,13 @@
 /* eslint no-restricted-globals: 0 */
 import React, { Component } from 'react';
-import {useSelector, useDispatch} from "react-redux";
-import {currentLocation} from "../actions/filter";
 import axios from "axios";
-
 
 import { Dropdown } from "react-bootstrap";
 import NavigationBar from "./navbar.components";
 import BottomBar from "./bottombar.components";
 
-import SideBarMenu from "./sideBarMenu";
+import SideBarMenuShop from "./sideBarMenu.shop.js";
+import MainPage from "./mainPage.shop.js";
 
 
 
@@ -19,6 +17,7 @@ export default class Shop extends Component{
         this.state = {
             fields:[],
             selectOptions : {},
+            catalogueL:'',
             catalogueOptions:["computer","mouse", "keyboard", "speaker", "headphone", "webcam"],
         }
     };
@@ -64,6 +63,7 @@ export default class Shop extends Component{
         else{
             window.location = "/Shop";
         }
+
     }
 
     render(){
@@ -92,12 +92,14 @@ export default class Shop extends Component{
                     <div id="container" className="">
                         <div id="sidebar" className="selection-bar" >
                             <div style={{margin:"20px"}}>
-                            {this.state.fields.map((eachField) => {return <SideBarMenu field={eachField} fieldValue={this.state.selectOptions[eachField]} key={eachField} />})}
+                            {this.state.fields.map((eachField) => {return <SideBarMenuShop field={eachField} fieldValue={this.state.selectOptions[eachField]} key={eachField} />})}
                             </div>
                         </div>
 
                         <div className="option-bar">
-                            <h1 style={{margin:"20px", textTransform:"capitalize", color:"#457b9d"}}>{this.state.catalogue}</h1>
+                            <div>
+                                <MainPage/>
+                            </div>
                         </div>
 
                     </div>

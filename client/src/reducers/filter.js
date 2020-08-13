@@ -5,7 +5,7 @@ export const filterState = {
 
 const filterReducer = (state = filterState, action) => {
     switch(action.type) {
-        case"ADD":
+        case"ADDCHECKBOX":
             if( typeof state.filter[action.key] === "object"){
                 state.filter[action.key].push(action.value);
             }
@@ -14,13 +14,22 @@ const filterReducer = (state = filterState, action) => {
                 }
 
             return state;
-        case "REMOVE":
+        case "REMOVECHECKBOX":
             const index = state.filter[action.key].indexOf(action.value);
             if(index > -1){
                 state.filter[action.key].splice(index,1);
+                if (state.filter[action.key].length === 0){
+                    delete state.filter[action.key];
+                }
                 return state;
-
             }
+            return state;
+
+        case "ADDRANGE":
+            state.filter[action.key] = action.value;
+            return state;
+        case "REMOVERANGE":
+            delete state.filter[action.key];
             return state;
 
         case "LOCATION":
