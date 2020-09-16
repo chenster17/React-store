@@ -17,7 +17,7 @@ export default class Shop extends Component{
         this.state = {
             fields:[],
             selectOptions : {},
-            catalogueL:'',
+            catalogue:'',
             catalogueOptions:["computer","mouse", "keyboard", "speaker", "headphone", "webcam"],
         }
     };
@@ -98,7 +98,7 @@ export default class Shop extends Component{
 
                         <div className="option-bar">
                             <div>
-                                <MainPage/>
+                                <MainPage field = {this.state.catalogue}/>
                             </div>
                         </div>
 
