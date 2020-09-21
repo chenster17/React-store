@@ -10,25 +10,37 @@ import SideBarMenuShop from "./sideBarMenu.shop.js";
 import MainPage from "./mainPage.shop.js";
 
 
+function parseExtension (URL){
+    var fieldsAndValues = URL.split('#');
+    var parseFieldsAndValues = {};
+    var temp = "";
+    for( var i = 1; i<fieldsAndValues.length; i++){
+        temp = fieldsAndValues[i].split("=");
+        parseFieldsAndValues[temp[0]] = temp[1].replace("%20", " ");
+    }
+    return parseFieldsAndValues
+}
 
 export default class Shop extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            fields:[],
-            selectOptions : {},
+            fields:[], //attribute of a category
+            selectOptions : {}, //brands or values of a attribute
             catalogue:'',
+            selectedFields: {},
             catalogueOptions:["computer","mouse", "keyboard", "speaker", "headphone", "webcam"],
         }
     };
 
     async componentDidMount() {
         var extension = document.URL.split('/');
-        await this.setState({catalogue: extension[extension.length - 1]});
-        if (this.state.catalogueOptions.includes(this.state.catalogue) && extension[extension.length - 2] === "Shop") {
+        await this.setState({catalogue: extension[extension.length - 1].split("#")[0]});
+        await this.setState({selectedFields:parseExtension(extension[extension.length - 1])});
+        if (this.state.catalogueOptions.includes(this.state.catalogue) && extension[3] === "Shop") {
             document.getElementById("container").className = "shop-container";
             document.getElementById("sidebar").style = "visibility:true";
-            axios.get("http://localhost:5000/" + extension[extension.length - 1]+ "/getFields")
+            axios.get("http://localhost:5000/" + this.state.catalogue+ "/getFields")
                 .then(async response => {
                     var temp = {};
                     this.setState({fields: response.data})
@@ -60,9 +72,12 @@ export default class Shop extends Component{
             this.setState({testText: "All Options"})
             document.getElementById("sidebar").style = "visibility:hidden";
         }
+
         else{
             window.location = "/Shop";
         }
+
+
 
     }
 
@@ -92,7 +107,7 @@ export default class Shop extends Component{
                     <div id="container" className="">
                         <div id="sidebar" className="selection-bar" >
                             <div style={{margin:"20px"}}>
-                            {this.state.fields.map((eachField) => {return <SideBarMenuShop field={eachField} fieldValue={this.state.selectOptions[eachField]} key={eachField} />})}
+                            {this.state.fields.map((eachField) => {return <SideBarMenuShop field={eachField} fieldValue={this.state.selectOptions[eachField]} selected={this.state.selectedFields} key={eachField} />})}
                             </div>
                         </div>
 
