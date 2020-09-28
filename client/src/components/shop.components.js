@@ -2,12 +2,12 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, CardColumns } from "react-bootstrap";
 import NavigationBar from "./navbar.components";
 import BottomBar from "./bottombar.components";
 
 import SideBarMenuShop from "./sideBarMenu.shop.js";
-import MainPage from "./mainPage.shop.js";
+import ShopItem from "./ShopItems.js";
 
 
 function parseExtension (URL){
@@ -20,6 +20,21 @@ function parseExtension (URL){
     }
     return parseFieldsAndValues
 }
+function APITranslateExtension (URL){
+    var fieldsAndValues = URL.split('#');
+    var parseFieldsAndValues = {};
+    var temp = "";
+    for( var i = 1; i<fieldsAndValues.length; i++){
+        temp = fieldsAndValues[i].split("=");
+        if(+temp[1]){
+            parseFieldsAndValues[temp[0]] = {$gte:temp[1]}
+        }
+        else{
+            parseFieldsAndValues[temp[0]] = temp[1].replace("%20", " ");
+        }
+    }
+    return parseFieldsAndValues
+}
 
 export default class Shop extends Component{
     constructor(props) {
@@ -29,7 +44,10 @@ export default class Shop extends Component{
             selectOptions : {}, //brands or values of a attribute
             catalogue:'',
             selectedFields: {},
+            API_selectedField_V:{},
+            selectedItems:[],
             catalogueOptions:["computer","mouse", "keyboard", "speaker", "headphone", "webcam"],
+
         }
     };
 
@@ -37,6 +55,7 @@ export default class Shop extends Component{
         var extension = document.URL.split('/');
         await this.setState({catalogue: extension[extension.length - 1].split("#")[0]});
         await this.setState({selectedFields:parseExtension(extension[extension.length - 1])});
+        await this.setState({API_selectedField_V:APITranslateExtension(extension[extension.length - 1]) });
         if (this.state.catalogueOptions.includes(this.state.catalogue) && extension[3] === "Shop") {
             document.getElementById("container").className = "shop-container";
             document.getElementById("sidebar").style = "visibility:true";
@@ -49,23 +68,10 @@ export default class Shop extends Component{
                         temp[i] = await result.data;
                     }
                     this.setState({selectOptions: temp});
-
-
-                    /*
-                    var filtered = extension[extension.length - 1].split('#').slice(1);
-                    var temp_JSON = {};
-                    for(var select of filtered){
-                        if(select.includes("=")){
-                            var each_select = select.split("=");
-                            if (this.state.fields.includes(each_select[0])){
-                                temp_JSON[each_select[0]] = each_select[1];
-                            }
-                        }
-                    }
-                    axios.post("http://localhost:5000/" + extension[extension.length - 1].split('#')[0] + "/getFilter", temp_JSON)
+                    axios.post("http://localhost:5000/" + this.state.catalogue + "/getFilter", this.state.API_selectedField_V)
                         .then(response => {
-                            this.setState({tech:response.data})
-                        })*/
+                            this.setState({selectedItems:response.data})
+                        })
                 })
         }
         else if (this.state.catalogue === "Shop" && extension.length === 4) {
@@ -112,8 +118,10 @@ export default class Shop extends Component{
                         </div>
 
                         <div className="option-bar">
-                            <div>
-                                <MainPage field = {this.state.catalogue}/>
+                            <div style={{width:"100%", margin:"10px"}}>
+                                <h1 style={{margin:"10px", textTransform:"capitalize", color:"#457b9d"}}>{this.state.catalogue}</h1>
+                                <div style={{display:"inline-block"}}>{this.state.selectedItems.map((each_item, index) => {return(<ShopItem item_JSON={each_item} key={index}/>)})}</div>
+
                             </div>
                         </div>
 
