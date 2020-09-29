@@ -22,12 +22,20 @@ function changeSlider(field){
         window.location += "#" + field +"="+document.getElementById("myRange"+field).value;
     }
     location.reload();
-
 }
 function removeFilter(field) {
     var regex = new RegExp("#" + field + "=[a-zA-Z]+[%20]*[a-zA-Z]*");
-    window.location = document.URL.replace(regex, "");
+    var temp = document.URL.replace(regex, "");
+    if (temp.search("#") !== -1){
+        window.location = temp;
+        location.reload()
+    }
+    else{
+        window.location = temp;
+    }
+
 }
+
 function addFilter(field, fieldValue){
     if(document.URL.includes(field)){
         var regex = new RegExp(field+"=[a-zA-Z]+[%20]*[a-zA-Z]*");

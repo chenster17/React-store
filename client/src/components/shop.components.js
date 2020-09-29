@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
-import { Dropdown, CardColumns } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import NavigationBar from "./navbar.components";
 import BottomBar from "./bottombar.components";
 
