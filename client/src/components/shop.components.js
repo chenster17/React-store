@@ -73,6 +73,7 @@ export default class Shop extends Component{
                             this.setState({selectedItems:response.data})
                         })
                 })
+            axios.get()
         }
         else if (this.state.catalogue === "Shop" && extension.length === 4) {
             this.setState({testText: "All Options"})
@@ -120,14 +121,12 @@ export default class Shop extends Component{
                         <div className="option-bar">
                             <div style={{width:"100%", margin:"10px"}}>
                                 <h1 style={{margin:"10px", textTransform:"capitalize", color:"#457b9d"}}>{this.state.catalogue}</h1>
-                                <div style={{display:"inline-block"}}>{this.state.selectedItems.map((each_item, index) => {return(<ShopItem item_JSON={each_item} key={index}/>)})}</div>
-
+                                <div style={{display:"inline-block"}}>{this.state.selectedItems.map((each_item, index) => {return(<ShopItem item_JSON={each_item} catalogue={this.state.catalogue} key={index}/>)})}</div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-
                 <BottomBar/>
             </div>
         )}

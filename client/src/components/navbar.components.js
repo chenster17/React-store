@@ -1,10 +1,31 @@
 import React, { Component } from 'react';
 import {Navbar, Nav} from "react-bootstrap";
+import axios from "axios";
 
+import Cart from "./Cart"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css'
 
+
+
+
 export default class NavigationBar extends Component{
+    constructor(props) {
+        super(props);
+        this.state={
+            cart:[]
+
+        }
+    }
+
+    componentDidMount() {
+        axios.get("http://localhost:5000/account/getAllCart")
+            .then(response => {
+                this.setState({cart:response.data.Cart});
+                console.log(this.state.cart)
+            })
+    }
+
     render(){
         return (
             <Navbar sticky="top" expand="lg" style={{backgroundColor:"#a8dadc"}}>
@@ -28,7 +49,7 @@ export default class NavigationBar extends Component{
                     </Nav>
                     <div className="cart">
                         <div className="cart-red">
-                            <div style={{textAlign:"center", color:"white", lineHeight: "20px"}}>0</div>
+                            <div style={{textAlign:"center", color:"white", lineHeight: "20px"}}><Cart currentCart={this.state.cart.length} /></div>
                         </div>
                     </div>
                 </Navbar.Collapse>

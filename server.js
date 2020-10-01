@@ -20,9 +20,11 @@ app.use(express.json());
 
 const speakerRouter = require('./server/routes/speaker');
 const webcamRouter = require('./server/routes/webcam');
+const accountRouter = require('./server/routes/account');
 
 app.use('/speaker', speakerRouter);
 app.use('/webcam', webcamRouter);
+app.use('/account', accountRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
