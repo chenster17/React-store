@@ -22,7 +22,6 @@ export default class NavigationBar extends Component{
         axios.get("http://localhost:5000/account/getAllCart")
             .then(response => {
                 this.setState({cart:response.data.Cart});
-                console.log(this.state.cart)
             })
     }
 
@@ -49,7 +48,7 @@ export default class NavigationBar extends Component{
                     </Nav>
                     <div className="cart">
                         <div className="cart-red">
-                            <div style={{textAlign:"center", color:"white", lineHeight: "20px"}}><Cart currentCart={this.state.cart.length} /></div>
+                            <div style={{textAlign:"center", color:"white", lineHeight: "20px"}}><Cart currentCart={this.state.cart} /></div>
                         </div>
                     </div>
                 </Navbar.Collapse>
